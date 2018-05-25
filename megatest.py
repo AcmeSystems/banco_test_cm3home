@@ -592,13 +592,20 @@ try:
 				break
 
 			if c=="g":
-				for i in range(10):
-					os.system("python dali.py 254 254 254 254")
-					continue
-					time.sleep(0.1)
-					os.system("python dali.py 0 0 0 0")
-					continue
-					time.sleep(0.1)
+				print "Red"
+				os.system("python dali.py 254 0 0 0")
+				time.sleep(1)
+				print "Green"
+				os.system("python dali.py 0 254 0 0")
+				time.sleep(1)
+				print "Blue"
+				os.system("python dali.py 0 0 254 0")
+				time.sleep(1)
+				print "White"
+				os.system("python dali.py 0 0 0 254")
+				time.sleep(1)
+				print "Off"
+				os.system("python dali.py 0 0 0 0")
 
 					
 	#*************************************************************************************
