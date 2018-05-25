@@ -178,25 +178,33 @@ try:
 				break
 				
 			if c=="g":
-				for i in range(2):
-					GPIO.output(RELAY_LEFT,GPIO.HIGH)
-					time.sleep(0.5)
+				print "Close the input 1 and 2 lines"
+				lt=0
+				rt=0
+				while True:
 					if not GPIO.input(INP_LEFT):
-						print "LEFT IN/OUT +++OK+++"
+						lt=1
+						GPIO.output(RELAY_LEFT,GPIO.HIGH)
+						while not GPIO.input(INP_LEFT):
+							time.sleep(0.1)
+							pass
 					else:
-						print "LEFT IN/OUT ---kO---"
-					time.sleep(0.5)
-					GPIO.output(RELAY_LEFT,GPIO.LOW)
-					
-					GPIO.output(RELAY_RIGHT,GPIO.HIGH)
-					time.sleep(0.5)
-					if not GPIO.input(INP_RIGHT):
-						print "LEFT IN/OUT +++OK+++"
-					else:
-						print "LEFT IN/OUT ---kO---"
-					time.sleep(0.5)
-					GPIO.output(RELAY_RIGHT,GPIO.LOW)
+						GPIO.output(RELAY_LEFT,GPIO.LOW)
 
+					if not GPIO.input(INP_RIGHT):
+						rt=1
+						GPIO.output(RELAY_RIGHT,GPIO.HIGH)
+						while not GPIO.input(INP_RIGHT):
+							time.sleep(0.1)
+							pass
+					else:
+						GPIO.output(RELAY_RIGHT,GPIO.LOW)
+
+					if lt==1 and rt==1:
+						GPIO.output(RELAY_LEFT,GPIO.LOW)
+						GPIO.output(RELAY_RIGHT,GPIO.LOW)
+						print "Test Inp 1/2 end. To repeat it press 'g'"
+						break
 
 
 	#*************************************************************************************
