@@ -1,5 +1,8 @@
 import RPi.GPIO as GPIO
 
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+
 WIFI_POWER=37
 GPIO.setup(WIFI_POWER,GPIO.OUT)
 GPIO.output(WIFI_POWER,GPIO.HIGH)
