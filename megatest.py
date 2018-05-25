@@ -530,7 +530,6 @@ try:
 			if c=="g":
 				for i in range(2):
 					os.system("ls /sys/bus/w1/devices/")
-					os.system("cat /sys/bus/w1/devices/28-000006c45074/w1_slave")
 					continue
 					
 	#*************************************************************************************
