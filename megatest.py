@@ -528,9 +528,8 @@ try:
 				break
 
 			if c=="g":
-				for i in range(2):
-					os.system("ls /sys/bus/w1/devices/")
-					continue
+				os.system("ls /sys/bus/w1/devices/")
+				continue
 					
 	#*************************************************************************************
 
