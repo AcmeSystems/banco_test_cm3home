@@ -10,6 +10,7 @@ import termios
 import sys
 import tty
 import os
+import socket
 
 def isData():
 	return select.select([sys.stdin], [], [], 0) == ([sys.stdin], [], [])
@@ -19,6 +20,14 @@ def separator():
 	print "=============================================================================="
 	print " "	
 
+def myip():
+	try:
+		s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+		s.connect(('8.8.8.8', 1))  # connect() for UDP doesn't send packets
+		local_ip_address = s.getsockname()[0]
+		return local_ip_address
+	except:
+		return "NO IP"	
 
 INP_LEFT=28
 INP_RIGHT=29
@@ -66,7 +75,6 @@ try:
 	separator()
 	print "Step %02d: Yarm" % (step)
 	print "  g=Go l='ls /dev/ttyUSBx' n=Next"
-
 
 	test_running=False
 	tx_counter=0
@@ -244,23 +252,7 @@ try:
 
 	#*************************************************************************************
 
-	separator()
-	step=step+1
-	print "Step %02d: Grove connector 1 test in I2C mode" % (step)
-	print "  g=Go n=Next"
 
-	while True:
-		if isData():
-			c = sys.stdin.read(1)
-
-			if c=="n":
-				break
-
-			if c=="g":
-				os.system("i2cdetect -y 1")
-
-
-	#*************************************************************************************
 
 	separator()
 	step=step+1
@@ -276,7 +268,7 @@ try:
 
 			if c=="g":
 				os.system("CAMERA=pi python /home/pi/flask-video-streaming/app.py &")
-				print "http://cm3home.local:5000"
+				print "http://%s:5000" % myip()
 
 	#*************************************************************************************
 
